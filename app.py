@@ -6,7 +6,7 @@ from groq import Groq  # Replace with your actual import
 load_dotenv()
 app = Flask(__name__)
 
-client = Groq(api_key=os.environ.get("GROK_API_KEY"))
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 @app.route("/", methods=["GET", "POST"])
 def index():
