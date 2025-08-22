@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Grokly Bot</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #ffeef3;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-container {
+      width: 100%;
+      max-width: 700px;
+      padding: 1.5rem;
+    }
+
+    .chat-box {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      color: #d6336c;
+      margin-bottom: 1rem;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #888;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close-btn:hover {
+      color: #d6336c;
+    }
+
+    .messages {
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+      padding-right: 0.5rem;
+    }
+
+    .bubble {
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.75rem;
+      border-radius: 12px;
+      max-width: 80%;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .user {
+      background-color: #d6336c;
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 0;
+    }
+
+    .grok {
+      background-color: #f2f6ff;
+      color: #333;
+      align-self: flex-start;
+      border-bottom-left-radius: 0;
+      border-left: 4px solid #0b3d91;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    textarea {
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1.5px solid #ddd;
+      font-size: 1rem;
+      resize: vertical;
+      font-family: inherit;
+      min-height: 80px;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #d6336c;
+      box-shadow: 0 0 6px rgba(214, 51, 108, 0.3);
+    }
+
+    button {
+      background-color: #d6336c;
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      margin-top: 0.75rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #bf2d5c;
+    }
+
+    #reopen-btn {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      background-color: #0b3d91;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #reopen-btn:hover {
+      background-color: #09407f;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <div class="chat-box" id="chatBox">
+      <button class="close-btn" onclick="closeChat()">×</button>
+      <h1>Grokly Chat</h1>
+
+      <div class="messages">
+        {% if question %}
+          <div class="bubble user">{{ question }}</div>
+        {% endif %}
+        {% if response %}
+          <div class="bubble grok">{{ response }}</div>
+        {% endif %}
+      </div>
+
+      <form method="POST" autocomplete="off">
+        <textarea name="question" placeholder="Ask something..." required></textarea>
+        <button type="submit">Ask anything </button>
+      </form>
+    </div>
+
+    <button id="reopen-btn" onclick="reopenChat()">Reopen Chat</button>
+  </div>
+
+  <script>
+    function closeChat() {
+      document.getElementById('chatBox').style.display = 'none';
+      document.getElementById('reopen-btn').style.display = 'block';
+    }
+
+    function reopenChat() {
+      document.getElementById('chatBox').style.display = 'flex';
+      document.getElementById('reopen-btn').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
