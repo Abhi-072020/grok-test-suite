@@ -1,12 +1,16 @@
-from flask import Flask, request, render_template
-import os
 from dotenv import load_dotenv
-from groq import Groq  # Replace with your actual import
+import os
+from groq import Groq 
 
-load_dotenv()
-app = Flask(__name__)
-
+load_dotenv()  # This will load your .env file variables into os.environ
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+
+# print("API Key:", os.environ.get("GROQ_API_KEY"))
+
+
+from flask import Flask, request, render_template
+
+app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
